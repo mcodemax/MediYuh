@@ -8,6 +8,7 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 const path = require('path')
 const { fileURLToPath } = require('url') //lets you set path when config dirs
+import { register } from "./controllers/auth.js"
 
 /* CONFIGS */
 //const __filename = fileURLToPath(import.meta.url) var predefined in node.js
@@ -33,6 +34,9 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({ storage }); //use this var anytime need to upload a file
+
+/* ROUTES WITH FILES */
+app.post("/auth/register", upload.single("picture", register))
 
 /* MONGOOSE SETUP */
 PORT = process.env.PORT || 6001;
